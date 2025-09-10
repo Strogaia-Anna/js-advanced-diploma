@@ -23,8 +23,34 @@
  * ```
  * */
 export function calcTileType(index, boardSize) {
-  // TODO: ваш код будет тут
-  return 'center';
+  let result = 'center';
+  
+  if (0 < index && index < (boardSize - 1)) {
+    result = 'top';
+  }
+  if ((boardSize * boardSize - boardSize) < index && index < (boardSize * boardSize - 1)) {
+    result = 'bottom';
+  }
+  if (index % boardSize === 0) {
+    if (index === 0) {
+      result = 'top-left';
+    } else if (index === (boardSize * boardSize - boardSize)) {
+      result = 'bottom-left';
+    } else {
+      result = 'left';
+    }
+  }
+  if ((index + 1) % boardSize === 0) {
+    if (index === (boardSize - 1)) {
+      result = 'top-right';
+    } else if (index === (boardSize * boardSize - 1)) {
+      result = 'bottom-right';
+    } else {
+      result = 'right';
+    }
+  }
+
+  return result;
 }
 
 export function calcHealthLevel(health) {
@@ -37,4 +63,8 @@ export function calcHealthLevel(health) {
   }
 
   return 'high';
+}
+
+export function genTooltipMessage(data) {
+  return `🎖${data.level}⚔${data.attack}🛡${data.defence}❤${data.health}`;
 }
